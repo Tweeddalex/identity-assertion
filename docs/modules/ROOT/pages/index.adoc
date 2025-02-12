@@ -811,18 +811,25 @@ These common identity signals, though popular, are not well-designed for use as 
 
 To facilitate the use of such identity signals, the _<<_named_actor,named actor>>_ may use the services of a third-party intermediary that they trust to gather these signals and to restate them on their behalf.
 
-We call this intermediary an *<<_identity_claims_aggregator,identity claims aggregator>>.* It performs two important roles:
+We call this intermediary an *<<_identity_claims_aggregator,identity claims aggregator>>.* It performs three important roles:
 
 1. It collects and verifies identity attestation claims from various _<<_identity_provider,identity providers>>_ such as social media sites and ID verification vendors.
-2. When the _<<_named_actor,named actor>>_ creates content, it creates a unique asset-specific credential binding the identity attestation claims collected earlier to the specific _<<C2PA asset>>_ being described.
-
-IMPORTANT: An *identity claims aggregation* claim does not support a _<<_named_actor,named actor>>_ using their own credential to directly issue their own signature for an *<<_identity assertion,identity assertion>>.* This may be added in a future version of this specification.
+2. It issues verifiable credentials attesting to the _<<_named_actor's,named actor's>>_ identity attestation claims
+3. When the _<<_named_actor,named actor>>_ creates content, it creates a unique asset-specific credential binding the identity attestation claims collected earlier to the specific _<<C2PA asset>>_ being described.
 
 The two workflows performed by the _<<_identity_claims_aggregator,identity claims aggregator>>_ are described in the sections below:
 
 ===== Providing identity claims to identity claims aggregator
 
 In the first workflow, the _<<_named_actor,named actor>>_ asks the _<<_identity_claims_aggregator,identity claims aggregator>>_ to verify an identity claim. The _<<_identity_claims_aggregator,identity claims aggregator>>_ contacts the _<<_identity_provider,identity provider>>_ to verify the identity claim. If that verification is successful, the _<<_identity_claims_aggregator,identity claims aggregator>>_ remembers the provided information for later use on the _<<_named_actor,named actor’s>>_ behalf.
+
+Here, the named actor _<<_identity_claims_aggregator,identity claims aggregator>>_ may also issue a verifiable credential attesting to the claims provided by the _<<_identity_provider,identity provider>>_. These credentials will specify:
+
+1. The _<<_identity_claims_aggregator's,identity claims aggregator's>>_ DID, used to sign the credential
+2. The claims provided by the _<<_identity_provider,identity provider>>_ in a structured JSON format within the `credentialSubject` section of the credential, described in section <>.
+3. A subject DID for the _<<_named_actor,named actor>>_, of which the keys are custodied by the _<<_identity_claims_aggregator,identity claims aggregator>>_.
+
+Through this model, the _<<_identity_claims_aggregator,identity claims aggregator>>_ assumes the role of a custodial wallet, custodying credentials and keys on behalf of the _<<_named_actor,named actor>>_, so that the _<<_named_actor,named actor>>_ does not need to manage the storage of their credentials or keys themselves.
 
 [#ica-workflow-gathering-claims]
 ****
