@@ -901,6 +901,12 @@ If using https://www.w3.org/TR/vc-data-model/[Verifiable credentials data model,
 
 If using https://www.w3.org/TR/vc-data-model-2.0/[Verifiable credentials data model, version 2.0], the `validFrom` field MUST exist and it MUST express the date and time when the credential becomes valid, as specified in link:++https://www.w3.org/TR/vc-data-model-2.0/#validity-period++[Section 4.8, “Validity period,”] of the Verifiable credentials data model.
 
+
+[#vc-property-credentialSubject]
+===== Credential Subject
+
+The `credentialSubject` property MUST be present and MUST contain a non-empty array, including information about the _<<_named_actor,named actor>>_. Within this property, the credential SHOULD contain an `id` property, representing an identifier for the _<<_named_actor,named actor>>_. This `id` property, if present, MUST conform to the requirements in link:++https://www.w3.org/TR/vc-data-model/#credential-subject++[Section 4.4, “Credential Subject,”].
+
 [#vc-credentialsubject-verifiedIdentities]
 ===== Verified identities
 
@@ -1263,7 +1269,7 @@ If the _<<_identity_claims_aggregator,identity claims aggregator’s>>_ credenti
 
 The COSE signature MUST be secured using one of the signature algorithms defined in link:++https://c2pa.org/specifications/specifications/2.0/specs/C2PA_Specification.html#_digital_signatures++[Section 13.2, “Digital signatures,”] in version 2.1 or any subsequent version of the C2PA technical specification.
 
-===== DID methods
+===== Issuer DID methods
 
 The public key corresponding to the `issuer` field SHALL be discoverable using one of the link:++https://www.w3.org/TR/did-core/#dfn-did-methods++[DID methods] as described in this section. This section defines:
 
@@ -1279,6 +1285,14 @@ The allowed list is:
 * link:https://w3c-ccg.github.io/did-method-web/[`did:web`]
 
 The deprecated list is empty.
+
+===== Subject DID methods
+
+The public key corresponding to the `credentialSubject` / `id` field SHALL be discoverable using one of the link:++https://www.w3.org/TR/did-core/#dfn-did-methods++[DID methods] as described in this section.
+
+The allowed list is:
+
+* link:https://https://w3c-ccg.github.io/did-method-key//[`did:key`]
 
 ==== Validating an identity assertion with verifiable credentials
 
