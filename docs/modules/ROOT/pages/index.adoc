@@ -1293,6 +1293,7 @@ The public key corresponding to the `credentialSubject` / `id` field SHALL be di
 The allowed list is:
 
 * link:https://https://w3c-ccg.github.io/did-method-key//[`did:key`]
+* link:https://w3c-ccg.github.io/did-method-web/[`did:web`]
 
 ==== Validating an identity assertion with verifiable credentials
 
